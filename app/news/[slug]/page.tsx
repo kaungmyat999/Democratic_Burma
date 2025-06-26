@@ -55,10 +55,6 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                 src={`/images/articles/${article.slug}.jpg`}
                 alt={article.slug}
                 className="w-full h-[400px] object-cover rounded-lg"
-                onError={(e) => {
-                  console.error(e)
-                  e.currentTarget.src = "/placeholder.svg"
-                }}
               />
             </div>
 

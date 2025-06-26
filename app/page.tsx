@@ -152,9 +152,6 @@ export default function Home() {
                         src={`/images/articles/${article.slug}.jpg`}
                         alt={article.title}
                         className="object-cover w-full h-full transition-all duration-300 group-hover:scale-105"
-                        onError={(e) => {
-                          e.currentTarget.src = "/placeholder.svg"
-                        }}
                       />
                     </div>
                     <h3 className="text-xl font-bold">{article.title}</h3>
