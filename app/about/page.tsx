@@ -2,6 +2,7 @@ import Link from "next/link"
 import { CheckCircle, User } from "lucide-react"
 import { images, getImage } from "@/lib/images"
 import Footer from "@/components/footer"
+import { teamMembers } from "@/data/team"
 
 export default function AboutPage() {
   return (
@@ -39,7 +40,7 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="flex justify-center">
-              <div className="relative h-[300px] w-full overflow-hidden rounded-xl bg-gray-100">
+              <div className="relative h-[400px] w-full overflow-hidden rounded-xl bg-gray-100">
                 <img
                   src={getImage(images.general.ourStory) || "/placeholder.svg"}
                   alt="Protest sign reading 'We Don't Accept Military Coup' with hands breaking chains, held against rainbow flag background"
@@ -132,12 +133,15 @@ export default function AboutPage() {
             <div className="bg-gray-50 rounded-xl p-8 md:p-12">
               <div className="grid gap-8 lg:grid-cols-3 lg:gap-12 items-center">
                 <div className="flex justify-center lg:justify-start">
-                  <div className="relative h-48 w-48 overflow-hidden rounded-full bg-gray-200">
-                    <img
+                  <div className="relative h-48 w-48 overflow-hidden rounded-full bg-gray-200 flex items-center justify-center">
+                    
+                    {/* <img
                       src={getImage(images.team.aungMin, "team") || "/placeholder.svg"}
                       alt="Kaung Myat - Founder & Executive Director"
                       className="object-cover w-full h-full"
-                    />
+                    /> */}
+                    
+                    <User className="h-16 w-16 text-gray-400" />
                   </div>
                 </div>
                 <div className="lg:col-span-2 space-y-4 text-center lg:text-left">
@@ -160,14 +164,7 @@ export default function AboutPage() {
 
           {/* Team Members Grid */}
           <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3 mt-8">
-            {[
-              { name: "Nwe Nwe Aye", role: "Advocacy Director" },
-              { name: "Kyaw Zaw", role: "Programs Manager" },
-              { name: "Thin Thin Aung", role: "Communications Director" },
-              { name: "Zaw Win", role: "Community Outreach" },
-              { name: "May Sabe Phyu", role: "Board Member" },
-              { name: "Thant Zin", role: "Research Coordinator" },
-            ].map((member, i) => (
+            {teamMembers.map((member, i) => (
               <div key={i} className="flex flex-col items-center space-y-4">
                 <div className="relative h-40 w-40 overflow-hidden rounded-full bg-gray-100 flex items-center justify-center">
                   <User className="h-16 w-16 text-gray-400" />
