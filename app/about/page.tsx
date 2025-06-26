@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { CheckCircle, User } from "lucide-react"
 import { images, getImage } from "@/lib/images"
 import Footer from "@/components/footer"
@@ -194,19 +193,18 @@ export default function AboutPage() {
               </p>
             </div>
             <div className="space-x-4">
-              <Button
-                asChild
-                className="bg-white text-[#D30000] hover:border-white hover:bg-transparent hover:text-white "
+              <Link
+                href="/donate"
+                className="inline-flex items-center justify-center px-4 py-2 bg-white text-[#D30000] rounded-md font-medium hover:bg-gray-100 transition-colors"
               >
-                <Link href="/donate">Support Our Work</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-white bg-transparent text-red hover:bg-grey-5100 hover:text-red-100"
+                Support Our Work
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-4 py-2 border border-white text-white bg-transparent rounded-md font-medium hover:bg-white hover:text-[#D30000] transition-colors"
               >
-                <Link href="/contact">Contact Us</Link>
-              </Button>
+                Contact Us
+              </Link>
             </div>
           </div>
         </div>

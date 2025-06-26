@@ -3,6 +3,7 @@ export const article = {
   date: "Dec 12, 2024",
   author: "Kaung Myat",
   slug: "Burma_After_Three_Years_of_Coup",
+  label: 'article',
   content: `
 
 Burma’s rapid descent on the global Democracy Index is a stark reminder of how fragile democratic progress can be. Once heralded for its cautious steps toward political reform, the nation now ranks as the world’s second-worst performer, surpassed only by Afghanistan according to the Economist Intelligence Unit (EIU). Burma’s plunge reflects the catastrophic aftermath of the February 2021 military coup and the enduring legacy of military dominance.  Burma is reflecting dramatic decline, including political repression, human rights violations, economic collapse, and ongoing ethnic conflicts.

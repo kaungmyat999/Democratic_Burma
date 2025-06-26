@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 
 export default function Navbar() {
@@ -30,11 +29,12 @@ export default function Navbar() {
           </Link>
         </nav>
         <div className="ml-auto md:ml-4">
-          <Button asChild className="bg-[#D30000] hover:bg-[#B00000]">
-            <Link href="/volunteer" className="text-sm font-medium hover:underline">
-              Get Involved
-            </Link>
-          </Button>
+          <Link
+            href="/volunteer"
+            className="inline-flex items-center justify-center px-4 py-2 bg-[#D30000] text-white rounded-md text-sm font-medium hover:bg-[#B00000] transition-colors"
+          >
+            Get Involved
+          </Link>
         </div>
 
         <button className="ml-4 md:hidden" onClick={toggleMenu}>
@@ -50,7 +50,7 @@ export default function Navbar() {
             <Link href="/news" className="text-sm font-medium hover:underline py-2">
               News
             </Link>
-            
+
             <Link href="/contact" className="text-sm font-medium hover:underline py-2">
               Contact
             </Link>

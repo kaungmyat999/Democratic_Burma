@@ -1,9 +1,7 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { ArrowLeft, Calendar, User } from "lucide-react"
 import { getArticleBySlug } from "@/app/data/articles"
 import { notFound } from "next/navigation"
-import { images, getImage } from "@/lib/images"
 import Footer from "@/components/footer"
 
 export default function ArticlePage({ params }: { params: { slug: string } }) {
@@ -17,7 +15,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
   const contentLines = article.content.split("\n")
   // Skip the first line which is the title
   const contentWithoutTitle = contentLines.slice(1).join("\n")
-
+  console.log(article.slug)
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -54,18 +52,13 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
             {/* Full-width hero image - now with landscape aspect ratio */}
             <div className="w-full mb-12">
               <img
-                src={
-                  article.slug === "community-workshop"
-                    ? "/images/articles/community-workshop-banner.jpg"
-                    : getImage(images.articles[article.slug as keyof typeof images.articles], "article") ||
-                      "/placeholder.svg"
-                }
-                alt={
-                  article.slug === "community-workshop"
-                    ? "Pro-democracy protesters wearing 'WE NEED DEMOCRACY' t-shirts with raised fist symbols, holding multilingual protest signs including 'Justice for Myanmar' and 'Stop Dictatorship'"
-                    : article.title
-                }
+                src={`/images/articles/${article.slug}.jpg`}
+                alt={article.slug}
                 className="w-full h-[400px] object-cover rounded-lg"
+                onError={(e) => {
+                  console.error(e)
+                  e.currentTarget.src = "/placeholder.svg"
+                }}
               />
             </div>
 
@@ -114,13 +107,16 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               })}
             </div>
 
-            <div className="mt-12">
-              <Button asChild variant="outline">
-                <Link href="/news" className="flex items-center">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to News
-                </Link>
-              </Button>
+            <div className="mt-12 flex justify-start">
+              <Link
+                href="/news"
+                className="inline-flex items-center gap-3 px-6 py-3 bg-white border-2 border-gray-300 rounded-lg hover:border-[#D30000] hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md group"
+              >
+                <ArrowLeft className="h-5 w-5 text-gray-600 group-hover:text-[#D30000] transition-colors duration-300" />
+                <span className="text-gray-700 group-hover:text-[#D30000] font-medium transition-colors duration-300">
+                  Back to All News
+                </span>
+              </Link>
             </div>
           </div>
         </div>

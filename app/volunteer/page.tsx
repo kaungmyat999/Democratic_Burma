@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -7,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Heart, Users, Globe, BookOpen, Camera, Code, Megaphone, Calendar } from "lucide-react"
-import { images, getImage } from "@/lib/images"
 import Footer from "@/components/footer"
 
 export default function VolunteerPage() {
@@ -27,16 +25,18 @@ export default function VolunteerPage() {
               </p>
             </div>
             <div className="space-x-4">
-              <Button asChild className="bg-white text-[#D30000] hover:bg-gray-100">
-                <Link href="#apply">Apply Now</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-white text-white bg-transparent hover:text-[#D30000] hover:bg-white"
+              <Link
+                href="#apply"
+                className="inline-flex items-center justify-center px-4 py-2 bg-white text-[#D30000] rounded-md font-medium hover:bg-gray-100 transition-colors"
               >
-                <Link href="#opportunities">View Opportunities</Link>
-              </Button>
+                Apply Now
+              </Link>
+              <Link
+                href="#opportunities"
+                className="inline-flex items-center justify-center px-4 py-2 border border-white text-white bg-transparent rounded-md font-medium hover:bg-white hover:text-[#D30000] transition-colors"
+              >
+                View Opportunities
+              </Link>
             </div>
           </div>
         </div>
@@ -76,8 +76,8 @@ export default function VolunteerPage() {
             <div className="flex justify-center">
               <div className="relative h-[400px] w-full overflow-hidden rounded-xl bg-gray-100">
                 <img
-                  src={getImage(images.programs.volunteers) || "/placeholder.svg"}
-                  alt="Volunteers working together"
+                  src="/images/programs/volunteers-unity.png"
+                  alt="Volunteers showing unity with Myanmar flag wristbands, hands joined together in solidarity"
                   className="object-cover w-full h-full"
                 />
               </div>
@@ -341,68 +341,18 @@ export default function VolunteerPage() {
                     </div>
                   </div>
 
-                  <Button type="submit" className="w-full bg-[#D30000] hover:bg-[#B00000]">
+                  <button
+                    type="submit"
+                    className="w-full inline-flex items-center justify-center px-4 py-2 bg-[#D30000] text-white rounded-md font-medium hover:bg-[#B00000] transition-colors"
+                  >
                     Submit Application
-                  </Button>
+                  </button>
                 </form>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
-
-      {/* Testimonials Section 
-      <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
-        <div className="container px-4 md:px-6">
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Volunteer Stories</h2>
-              <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Hear from our amazing volunteers about their experiences
-              </p>
-            </div>
-          </div>
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mt-8">
-            {[
-              {
-                name: "Sarah Chen",
-                role: "Communications Volunteer",
-                quote:
-                  "Volunteering with Democratic Burma has been incredibly rewarding. I've been able to use my marketing skills to help amplify important voices and stories.",
-                duration: "2 years",
-              },
-              {
-                name: "Michael Rodriguez",
-                role: "Research Volunteer",
-                quote:
-                  "The research work I do helps inform policy recommendations. It's amazing to see how our collective efforts contribute to meaningful change.",
-                duration: "1.5 years",
-              },
-              {
-                name: "Priya Patel",
-                role: "Event Planning Volunteer",
-                quote:
-                  "Organizing community events has connected me with incredible people who share the same passion for human rights and democracy.",
-                duration: "3 years",
-              },
-            ].map((testimonial, i) => (
-              <Card key={i}>
-                <CardContent className="pt-6">
-                  <div className="space-y-4">
-                    <p className="text-gray-500 italic">"{testimonial.quote}"</p>
-                    <div className="border-t pt-4">
-                      <h4 className="font-semibold">{testimonial.name}</h4>
-                      <p className="text-sm text-gray-500">{testimonial.role}</p>
-                      <p className="text-xs text-[#D30000]">Volunteering for {testimonial.duration}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-      */}
 
       {/* Call to Action */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-[#D30000] text-white">
@@ -415,16 +365,18 @@ export default function VolunteerPage() {
               </p>
             </div>
             <div className="space-x-4">
-              <Button asChild className="bg-white text-[#D30000] hover:bg-gray-100">
-                <Link href="#apply">Apply Now</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-white text-white bg-transparent hover:text-[#D30000] hover:bg-white"
+              <Link
+                href="#apply"
+                className="inline-flex items-center justify-center px-4 py-2 bg-white text-[#D30000] rounded-md font-medium hover:bg-gray-100 transition-colors"
               >
-                <Link href="/contact">Have Questions?</Link>
-              </Button>
+                Apply Now
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-4 py-2 border border-white text-white bg-transparent rounded-md font-medium hover:bg-white hover:text-[#D30000] transition-colors"
+              >
+                Have Questions?
+              </Link>
             </div>
           </div>
         </div>

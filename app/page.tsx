@@ -1,13 +1,15 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { ShieldAlert, Wifi, Users, ChevronRight } from "lucide-react"
 import { allArticles } from "@/app/data/articles"
 import { images, getImage } from "@/lib/images"
 import Footer from "@/components/footer"
 
 export default function Home() {
-  // Get the two most recent articles
-  const latestArticles = allArticles.slice(0, 2)
+  // Get the two most recent articles by date
+  const latestArticles = allArticles
+    .filter((article) => article.date) // Only articles with dates
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // Sort by date descending
+    .slice(0, 2) // Get latest 2
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -24,16 +26,18 @@ export default function Home() {
               </p>
             </div>
             <div className="space-x-4">
-              <Button asChild className="bg-white text-[#D30000] hover:bg-gray-100">
-                <Link href="/about">Learn More</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-white text-white bg-transparent hover:text-[#D30000] hover:bg-white"
+              <Link
+                href="/about"
+                className="inline-flex items-center justify-center px-4 py-2 bg-white text-[#D30000] rounded-md font-medium hover:bg-gray-100 transition-colors"
               >
-                <Link href="/volunteer">Get Involved</Link>
-              </Button>
+                Learn More
+              </Link>
+              <Link
+                href="/volunteer"
+                className="inline-flex items-center justify-center px-4 py-2 border border-white text-white bg-transparent rounded-md font-medium hover:bg-white hover:text-[#D30000] transition-colors"
+              >
+                Get Involved
+              </Link>
             </div>
           </div>
         </div>
@@ -126,8 +130,8 @@ export default function Home() {
             <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:gap-12 mt-8">
               {latestArticles.map((article) => {
                 // Get the appropriate image from our centralized system
-                const articleImage =
-                  images.articles[article.slug as keyof typeof images.articles] || images.placeholders.article
+                // const articleImage =
+                //   images.articles[article.slug as keyof typeof images.articles] || images.placeholders.article
 
                 // Extract the first paragraph of content (skipping the title)
                 const contentLines = article.content.split("\n")
@@ -145,17 +149,12 @@ export default function Home() {
                   <div key={article.slug} className="group relative flex flex-col space-y-3 text-left">
                     <div className="relative h-60 w-full overflow-hidden rounded-lg bg-gray-100">
                       <img
-                        src={
-                          article.slug === "community-workshop"
-                            ? "/images/articles/community-workshop-banner.jpg"
-                            : getImage(articleImage, "article") || "/placeholder.svg"
-                        }
-                        alt={
-                          article.slug === "community-workshop"
-                            ? "Pro-democracy protesters wearing 'WE NEED DEMOCRACY' t-shirts with raised fist symbols, holding multilingual protest signs"
-                            : article.title
-                        }
+                        src={`/images/articles/${article.slug}.jpg`}
+                        alt={article.title}
                         className="object-cover w-full h-full transition-all duration-300 group-hover:scale-105"
+                        onError={(e) => {
+                          e.currentTarget.src = "/placeholder.svg"
+                        }}
                       />
                     </div>
                     <h3 className="text-xl font-bold">{article.title}</h3>
@@ -177,10 +176,16 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="flex justify-center mt-8">
-          <Button asChild variant="outline">
-            <Link href="/news">View All Updates</Link>
-          </Button>
+        <div className="flex justify-center mt-12">
+          <Link
+            href="/news"
+            className="inline-flex items-center gap-3 px-6 py-3 bg-white border-2 border-gray-300 rounded-lg hover:border-[#D30000] hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md group"
+          >
+            <span className="text-gray-700 group-hover:text-[#D30000] font-medium transition-colors duration-300">
+              View All Updates
+            </span>
+            <ChevronRight className="h-5 w-5 text-gray-600 group-hover:text-[#D30000] group-hover:translate-x-1 transition-all duration-300" />
+          </Link>
         </div>
       </section>
 
@@ -195,16 +200,18 @@ export default function Home() {
               </p>
             </div>
             <div className="space-x-4">
-              <Button asChild className="bg-white text-[#D30000] hover:bg-gray-100">
-                <Link href="/contact">Contact</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-white text-white bg-transparent hover:text-[#D30000] hover:bg-white"
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-4 py-2 bg-white text-[#D30000] rounded-md font-medium hover:bg-gray-100 transition-colors"
               >
-                <Link href="/volunteer">Volunteer</Link>
-              </Button>
+                Contact
+              </Link>
+              <Link
+                href="/volunteer"
+                className="inline-flex items-center justify-center px-4 py-2 border border-white text-white bg-transparent rounded-md font-medium hover:bg-white hover:text-[#D30000] transition-colors"
+              >
+                Volunteer
+              </Link>
             </div>
           </div>
         </div>
