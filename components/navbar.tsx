@@ -43,7 +43,7 @@ export default function Navbar() {
       </div>
       {isMenuOpen && (
         <div className="container md:hidden">
-          <nav className="flex flex-col space-y-4 py-4">
+          <nav className="flex flex-col space-y-4 py-4 px-4">
             <Link href="/about" className="text-sm font-medium hover:underline py-2">
               About
             </Link>
