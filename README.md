@@ -1,10 +1,5 @@
 # Democratic Burma website
 
-1. First Clone the Website
-- git clone https://github.com/kaungmyat999/Democratic_Burma
+Full Stack Responsive Web App
+- Created using React, NextJs, JavaScript, TypeScript
   
-2. Install dependencies
-- npm install
-  
-3. Run the app
-- npm start
