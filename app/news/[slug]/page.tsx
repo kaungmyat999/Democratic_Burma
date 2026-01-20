@@ -20,7 +20,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="w-full py-12 md:py-12 lg:py-24 bg-gray-100">
-        <div className="container px-4 md:px-6">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="space-y-12">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
@@ -47,7 +47,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
 
       {/* Article Content Section */}
       <section className="w-full pt-16 pb-12 md:pb-24 lg:pb-32">
-        <div className="container px-4 md:px-6">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl">
             {/* Full-width hero image - now with landscape aspect ratio */}
             <div className="w-full mb-12">

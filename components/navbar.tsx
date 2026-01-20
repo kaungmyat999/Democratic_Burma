@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <header className="w-full border-b bg-white">
-      <div className="container flex h-16 items-center px-4 md:px-6">
+      <div className="w-full max-w-7xl mx-auto flex h-16 items-center px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center">
           <span className="text-xl font-bold text-[#D30000]">Democratic Burma</span>
         </Link>
@@ -42,7 +42,7 @@ export default function Navbar() {
         </button>
       </div>
       {isMenuOpen && (
-        <div className="container md:hidden">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 md:hidden">
           <nav className="flex flex-col space-y-4 py-4">
             <Link href="/about" className="text-sm font-medium hover:underline py-2">
               About

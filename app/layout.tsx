@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light">
           <Navbar />
-          <main>{children}</main>
+          <main className="w-full">{children}</main>
         </ThemeProvider>
       </body>
     </html>

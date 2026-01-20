@@ -1,19 +1,140 @@
+"use client"
+
 import Link from "next/link"
+import { useState, useTransition } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Heart, Users, Globe, BookOpen, Camera, Code, Megaphone, Calendar } from "lucide-react"
+import { Heart, Users, Globe, BookOpen, Camera, Code, Megaphone, Calendar, CheckCircle, Loader2 } from "lucide-react"
 import Footer from "@/components/footer"
 
 export default function VolunteerPage() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    location: "",
+    interests: [] as string[],
+    timeCommitment: "",
+    duration: "",
+    experience: "",
+    languages: "",
+    motivation: "",
+    additional: "",
+  })
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState("")
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
+  const [isPending, startTransition] = useTransition()
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+    setError("")
+    setFieldErrors((prev) => ({ ...prev, [name]: "" }))
+  }
+
+  const handleInterestChange = (checked: boolean, interest: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      interests: checked
+        ? [...prev.interests, interest]
+        : prev.interests.filter((i) => i !== interest),
+    }))
+    setError("")
+    setFieldErrors((prev) => ({ ...prev, interests: "" }))
+  }
+
+  const validateForm = () => {
+    const errors: Record<string, string> = {}
+
+    if (!formData.firstName.trim()) {
+      errors.firstName = "First name is required"
+    }
+
+    if (!formData.lastName.trim()) {
+      errors.lastName = "Last name is required"
+    }
+
+    if (!formData.email.trim()) {
+      errors.email = "Email is required"
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Please enter a valid email"
+    }
+
+    if (!formData.location.trim()) {
+      errors.location = "Location is required"
+    }
+
+    if (!formData.motivation.trim()) {
+      errors.motivation = "Motivation is required"
+    }
+
+    setFieldErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError("")
+
+    if (!validateForm()) {
+      setError("Please fill in all required fields")
+      return
+    }
+
+    const formDataObj = new FormData()
+    Object.entries(formData).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((item) => formDataObj.append(key, item))
+      } else {
+        formDataObj.append(key, value)
+      }
+    })
+
+    startTransition(async () => {
+      try {
+        const response = await fetch("/api/volunteer", {
+          method: "POST",
+          body: formDataObj,
+        })
+
+        const result = await response.json()
+
+        if (response.ok && result.success) {
+          setIsSubmitted(true)
+          setFormData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            location: "",
+            interests: [],
+            timeCommitment: "",
+            duration: "",
+            experience: "",
+            languages: "",
+            motivation: "",
+            additional: "",
+          })
+        } else {
+          setError(result.error || "Failed to submit application. Please try again.")
+        }
+      } catch (err) {
+        setError("An unexpected error occurred. Please try again.")
+      }
+    })
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-[#D30000] text-white">
-        <div className="container px-4 md:px-6">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
@@ -44,8 +165,8 @@ export default function VolunteerPage() {
 
       {/* Why Volunteer Section */}
       <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div className="grid gap-6 lg:grid-cols-2 lg:gap-8 items-center">
             <div className="space-y-4">
               <div className="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm">Why Volunteer</div>
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Make a Meaningful Impact</h2>
@@ -88,7 +209,7 @@ export default function VolunteerPage() {
 
       {/* Volunteer Opportunities Section */}
       <section id="opportunities" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
-        <div className="container px-4 md:px-6">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Volunteer Opportunities</h2>
@@ -97,7 +218,7 @@ export default function VolunteerPage() {
               </p>
             </div>
           </div>
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
+          <div className="w-full max-w-6xl mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mt-8">
             {[
               {
                 icon: Megaphone,
@@ -172,7 +293,7 @@ export default function VolunteerPage() {
 
       {/* Volunteer Application Form */}
       <section id="apply" className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container px-4 md:px-6">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-2xl">
             <div className="text-center space-y-4 mb-8">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Apply to Volunteer</h2>
@@ -189,33 +310,112 @@ export default function VolunteerPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-6">
+                {/* Success Message */}
+                {isSubmitted && (
+                  <div className="animate-in slide-in-from-top-4 duration-500 ease-out mb-6">
+                    <div className="rounded-lg bg-green-50 border border-green-200 p-6 text-center space-y-4">
+                      <div className="flex justify-center">
+                        <div className="rounded-full bg-green-100 p-3">
+                          <CheckCircle className="h-8 w-8 text-green-600" />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <h3 className="text-lg font-semibold text-green-800">Application Submitted Successfully!</h3>
+                        <p className="text-green-700">
+                          Thank you for your interest in volunteering with Democratic Burma. We have received your application and will contact you soon.
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setIsSubmitted(false)}
+                        className="inline-flex items-center justify-center px-4 py-2 border border-green-300 text-green-700 bg-transparent rounded-md font-medium hover:bg-green-50 transition-colors"
+                      >
+                        Submit Another Application
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Contact Form */}
+                {!isSubmitted && (
+                  <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Personal Information */}
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Personal Information</h3>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
                         <Label htmlFor="firstName">First Name *</Label>
-                        <Input id="firstName" name="firstName" required />
+                         <Input 
+                           id="firstName" 
+                           name="firstName" 
+                           required 
+                           value={formData.firstName}
+                           onChange={handleChange}
+                           disabled={isPending}
+                           className={fieldErrors.firstName ? "border-red-500 focus:ring-red-500" : ""}
+                         />
+                         {fieldErrors.firstName && (
+                           <p className="text-sm text-red-600 mt-1">{fieldErrors.firstName}</p>
+                         )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName">Last Name *</Label>
-                        <Input id="lastName" name="lastName" required />
+                         <Input 
+                           id="lastName" 
+                           name="lastName" 
+                           required 
+                           value={formData.lastName}
+                           onChange={handleChange}
+                           disabled={isPending}
+                           className={fieldErrors.lastName ? "border-red-500 focus:ring-red-500" : ""}
+                         />
+                         {fieldErrors.lastName && (
+                           <p className="text-sm text-red-600 mt-1">{fieldErrors.lastName}</p>
+                         )}
                       </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email *</Label>
+                      <Input 
+                        id="email" 
+                        name="email" 
+                        type="email" 
+                        required 
+                        value={formData.email}
+                        onChange={handleChange}
+                        disabled={isPending}
+                        className={fieldErrors.email ? "border-red-500 focus:ring-red-500" : ""}
+                      />
+                      {fieldErrors.email && (
+                        <p className="text-sm text-red-600 mt-1">{fieldErrors.email}</p>
+                      )}
                     </div>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                       <div className="space-y-2">
-                        <Label htmlFor="email">Email *</Label>
-                        <Input id="email" name="email" type="email" required />
-                      </div>
-                      <div className="space-y-2">
                         <Label htmlFor="phone">Phone Number</Label>
-                        <Input id="phone" name="phone" type="tel" />
+                        <Input 
+                          id="phone" 
+                          name="phone" 
+                          type="tel" 
+                          value={formData.phone}
+                          onChange={handleChange}
+                          disabled={isPending}
+                        />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="location">Location (City, Country) *</Label>
-                      <Input id="location" name="location" required />
+                      <Input 
+                        id="location" 
+                        name="location" 
+                        required 
+                        value={formData.location}
+                        onChange={handleChange}
+                        disabled={isPending}
+                        className={fieldErrors.location ? "border-red-500 focus:ring-red-500" : ""}
+                      />
+                      {fieldErrors.location && (
+                        <p className="text-sm text-red-600 mt-1">{fieldErrors.location}</p>
+                      )}
                     </div>
                   </div>
 
@@ -236,7 +436,12 @@ export default function VolunteerPage() {
                           "Fundraising",
                         ].map((interest) => (
                           <div key={interest} className="flex items-center space-x-2">
-                            <Checkbox id={interest} />
+                            <Checkbox 
+                              id={interest}
+                              checked={formData.interests.includes(interest)}
+                              onCheckedChange={(checked) => handleInterestChange(checked as boolean, interest)}
+                              disabled={isPending}
+                            />
                             <Label htmlFor={interest} className="text-sm font-normal">
                               {interest}
                             </Label>
@@ -251,8 +456,11 @@ export default function VolunteerPage() {
                     <h3 className="text-lg font-semibold">Availability</h3>
                     <div className="space-y-2">
                       <Label htmlFor="timeCommitment">How much time can you commit per week?</Label>
-                      <Select>
-                        <SelectTrigger>
+                      <Select value={formData.timeCommitment} onValueChange={(value) => {
+                        setFormData(prev => ({ ...prev, timeCommitment: value }))
+                        setFieldErrors(prev => ({ ...prev, timeCommitment: "" }))
+                      }}>
+                        <SelectTrigger className={fieldErrors.timeCommitment ? "border-red-500 focus:ring-red-500" : ""}>
                           <SelectValue placeholder="Select time commitment" />
                         </SelectTrigger>
                         <SelectContent>
@@ -265,8 +473,11 @@ export default function VolunteerPage() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="duration">How long would you like to volunteer?</Label>
-                      <Select>
-                        <SelectTrigger>
+                      <Select value={formData.duration} onValueChange={(value) => {
+                        setFormData(prev => ({ ...prev, duration: value }))
+                        setFieldErrors(prev => ({ ...prev, duration: "" }))
+                      }}>
+                        <SelectTrigger className={fieldErrors.duration ? "border-red-500 focus:ring-red-500" : ""}>
                           <SelectValue placeholder="Select duration" />
                         </SelectTrigger>
                         <SelectContent>
@@ -289,15 +500,21 @@ export default function VolunteerPage() {
                         name="experience"
                         placeholder="Describe your background, skills, and any relevant experience..."
                         className="min-h-[100px]"
+                        value={formData.experience}
+                        onChange={handleChange}
+                        disabled={isPending}
                       />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="languages">Languages you speak (including proficiency level)</Label>
-                      <Input
-                        id="languages"
-                        name="languages"
-                        placeholder="e.g., English (native), Burmese (fluent), Thai (conversational)"
-                      />
+                       <Input
+                         id="languages"
+                         name="languages"
+                         placeholder="e.g., English (native), Burmese (fluent), Thai (conversational)"
+                         value={formData.languages}
+                         onChange={handleChange}
+                         disabled={isPending}
+                       />
                     </div>
                   </div>
 
@@ -310,9 +527,15 @@ export default function VolunteerPage() {
                         id="motivation"
                         name="motivation"
                         placeholder="Share your motivation and what you hope to achieve through volunteering..."
-                        className="min-h-[100px]"
+                        className={`min-h-[100px] ${fieldErrors.motivation ? "border-red-500 focus:ring-red-500" : ""}`}
                         required
+                        value={formData.motivation}
+                        onChange={handleChange}
+                        disabled={isPending}
                       />
+                      {fieldErrors.motivation && (
+                        <p className="text-sm text-red-600 mt-1">{fieldErrors.motivation}</p>
+                      )}
                     </div>
                   </div>
 
@@ -326,6 +549,9 @@ export default function VolunteerPage() {
                         name="additional"
                         placeholder="Any additional information, questions, or special considerations..."
                         className="min-h-[80px]"
+                        value={formData.additional}
+                        onChange={handleChange}
+                        disabled={isPending}
                       />
                     </div>
                   </div>
@@ -341,13 +567,28 @@ export default function VolunteerPage() {
                     </div>
                   </div>
 
+                  {error && (
+                    <div className="animate-in slide-in-from-top-2 duration-300 rounded-lg bg-red-50 border border-red-200 p-3">
+                      <p className="text-red-700 text-sm">{error}</p>
+                    </div>
+                  )}
+
                   <button
                     type="submit"
-                    className="w-full inline-flex items-center justify-center px-4 py-2 bg-[#D30000] text-white rounded-md font-medium hover:bg-[#B00000] transition-colors"
+                    className="w-full inline-flex items-center justify-center px-4 py-2 bg-[#D30000] text-white rounded-md font-medium hover:bg-[#B00000] transition-colors disabled:opacity-50"
+                    disabled={isPending}
                   >
-                    Submit Application
+                    {isPending ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Submitting Application...
+                      </>
+                    ) : (
+                      "Submit Application"
+                    )}
                   </button>
                 </form>
+                )}
               </CardContent>
             </Card>
           </div>
@@ -356,7 +597,7 @@ export default function VolunteerPage() {
 
       {/* Call to Action */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-[#D30000] text-white">
-        <div className="container px-4 md:px-6">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Ready to Get Started?</h2>

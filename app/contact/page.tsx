@@ -60,7 +60,7 @@ export default function ContactPage() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-        <div className="container px-4 md:px-6">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">Contact Us</h1>
@@ -74,8 +74,8 @@ export default function ContactPage() {
 
       {/* Contact Form Section */}
       <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="container px-4 md:px-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Get in Touch</h2>
@@ -117,11 +117,10 @@ export default function ContactPage() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold text-green-800">Message Sent Successfully!</h3>
-                      <p className="text-green-700">
-                        Thank you for reaching out to us. We've received your message and will get back to you within
-                        24-48 hours.
-                      </p>
+                        <h3 className="text-lg font-semibold text-green-800">Message Sent Successfully!</h3>
+                        <p className="text-green-700">
+                          Thank you for reaching out to us. We've received your message and will get back to you soon.
+                        </p>
                     </div>
                     <button
                       onClick={() => setIsSubmitted(false)}
