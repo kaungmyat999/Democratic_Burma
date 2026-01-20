@@ -11,7 +11,7 @@ export default function GetInvolvedPage() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-[#D30000] text-white">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">Get Involved</h1>
@@ -35,7 +35,7 @@ export default function GetInvolvedPage() {
 
       {/* Ways to Get Involved Section */}
       <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Ways to Get Involved</h2>
@@ -44,7 +44,7 @@ export default function GetInvolvedPage() {
               </p>
             </div>
           </div>
-          <div className="w-full max-w-6xl mx-auto grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8 mt-8">
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-3 lg:gap-12 mt-8">
             <Card>
               <CardHeader className="flex flex-row items-center gap-4">
                 <Heart className="h-8 w-8 text-[#D30000]" />
@@ -107,8 +107,8 @@ export default function GetInvolvedPage() {
 
       {/* Volunteer Section */}
       <section id="volunteer" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-8 items-center">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="space-y-4">
               <div className="inline-block rounded-lg bg-[#D30000] px-3 py-1 text-sm text-white">Volunteer</div>
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Join Our Volunteer Team</h2>
@@ -227,8 +227,8 @@ export default function GetInvolvedPage() {
 
       {/* Donate Section */}
       <section id="donate" className="w-full py-12 md:py-24 lg:py-32">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-8 items-center">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="flex justify-center order-2 lg:order-1">
               <div className="relative h-[400px] w-full overflow-hidden rounded-xl bg-gray-100">
                 <img
@@ -333,7 +333,7 @@ export default function GetInvolvedPage() {
 
       {/* Events Section */}
       <section id="events" className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Upcoming Events</h2>
@@ -342,7 +342,7 @@ export default function GetInvolvedPage() {
               </p>
             </div>
           </div>
-          <div className="w-full max-w-6xl mx-auto grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 mt-8">
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2 lg:gap-12 mt-8">
             {[
               {
                 title: "Democracy Forum 2023",
@@ -405,8 +405,8 @@ export default function GetInvolvedPage() {
 
       {/* Newsletter Section */}
       <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-8 items-center">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Stay Informed</h2>
               <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">

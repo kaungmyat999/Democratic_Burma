@@ -4,7 +4,7 @@ import { Mail } from "lucide-react"
 export default function Footer() {
   return (
     <footer className="w-full py-6 bg-gray-900 text-white">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container px-4 md:px-6">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="space-y-8">
             <h3 className="text-lg font-bold">Democratic Burma</h3>

@@ -1,7 +1,6 @@
 "use server"
 
 import { Resend } from "resend"
-import { admin } from "@/data/admin"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -19,11 +18,9 @@ export async function sendContactEmail(formData: FormData) {
       }
     }
 
-    // Send email to admin
     const { data, error } = await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: [admin.email],
-      replyTo: email,
+      from: "v0-democratic-burma-website.vercel.app",
+      to: ["kaungmyatcomputerscience@gmail.com"],
       subject: `Contact Form: ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -69,56 +66,9 @@ Sent at: ${new Date().toLocaleString()}
       console.error("Resend error:", error)
       return {
         success: false,
-        error: `Failed to send email: ${error.message}`,
+        error: "Failed to send email. Please try again.",
       }
     }
-
-    // Send confirmation email to user
-    await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: [email],
-      subject: "Thank you for contacting Democratic Burma",
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <h2 style="color: #D30000; border-bottom: 2px solid #D30000; padding-bottom: 10px;">
-            Thank You for Your Message
-          </h2>
-          
-          <div style="margin: 20px 0;">
-            <p>Dear ${name},</p>
-            <p>Thank you for reaching out to Democratic Burma. We have received your message with the subject:</p>
-            <p style="background-color: #f5f5f5; padding: 10px; border-left: 4px solid #D30000; font-weight: bold;">
-              ${subject}
-            </p>
-          </div>
-          
-          <div style="margin: 20px 0;">
-            <p>Our team will review your message and get back to you soon.</p>
-            <p>We appreciate your interest in our work for democracy and human rights in Burma.</p>
-          </div>
-          
-          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; color: #666; font-size: 12px;">
-            <p>With gratitude,</p>
-            <p>The Democratic Burma Team</p>
-            <p>Washington, DC</p>
-          </div>
-        </div>
-      `,
-      text: `
-Thank You for Your Message
-
-Dear ${name},
-
-Thank you for reaching out to Democratic Burma. We have received your message with the subject: ${subject}
-
-Our team will review your message and get back to you within 24-48 hours.
-We appreciate your interest in our work for democracy and human rights in Burma.
-
-With gratitude,
-The Democratic Burma Team
-Washington, DC
-      `,
-    })
 
     return {
       success: true,

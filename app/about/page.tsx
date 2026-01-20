@@ -9,7 +9,7 @@ export default function AboutPage() {
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-100">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
@@ -25,8 +25,8 @@ export default function AboutPage() {
 
       {/* Our Story Section */}
       <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-8 items-center">
+        <div className="container px-4 md:px-6">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Our Story</h2>
               <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -54,8 +54,8 @@ export default function AboutPage() {
 
       {/* Mission and Vision Section */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-gray-50">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="container px-4 md:px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
               <div className="rounded-lg bg-[#D30000] px-3 py-1 text-sm text-white w-full mb-6">Our Mission</div>
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl mb-4">What We Do</h2>
@@ -118,7 +118,7 @@ export default function AboutPage() {
 
       {/* Team Section */}
       <section className="w-full py-12 md:py-24 lg:py-32">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Our Team</h2>
@@ -131,7 +131,7 @@ export default function AboutPage() {
           {/* Founder Message Section */}
           <div className="mx-auto max-w-4xl mt-12 mb-16">
             <div className="bg-gray-50 rounded-xl p-8 md:p-12">
-              <div className="grid gap-8 lg:grid-cols-3 lg:gap-8 items-center">
+              <div className="grid gap-8 lg:grid-cols-3 lg:gap-12 items-center">
                 <div className="flex justify-center lg:justify-start">
                   <div className="relative h-48 w-48 overflow-hidden rounded-full bg-gray-200 flex items-center justify-center">
                     
@@ -163,7 +163,7 @@ export default function AboutPage() {
           </div>
 
           {/* Team Members Grid */}
-          <div className="w-full max-w-6xl mx-auto grid grid-cols-1 gap-8 md:grid-cols-3 mt-8">
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-3 mt-8">
             {teamMembers.map((member, i) => (
               <div key={i} className="flex flex-col items-center space-y-4">
                 <div className="relative h-40 w-40 overflow-hidden rounded-full bg-gray-100 flex items-center justify-center">
@@ -181,7 +181,7 @@ export default function AboutPage() {
 
       {/* Call to Action */}
       <section className="w-full py-12 md:py-24 lg:py-32 bg-[#D30000] text-white">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center space-y-4 text-center">
             <div className="space-y-2">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Join Our Cause</h2>
