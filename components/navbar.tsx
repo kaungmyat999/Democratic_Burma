@@ -50,7 +50,6 @@ export default function Navbar() {
             <Link href="/news" className="text-sm font-medium hover:underline py-2">
               News
             </Link>
-
             <Link href="/contact" className="text-sm font-medium hover:underline py-2">
               Contact
             </Link>
